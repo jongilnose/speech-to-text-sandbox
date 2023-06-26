@@ -1,0 +1,124 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: white;
+  background: rgb(38, 38, 38);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: rgb(38, 38, 38);
+  }
+}
+.speech-mic{
+  font-weight: bold;
+}
+
+.speech-button{
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  font-size: 30px;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+.speech-button.active {
+  background-color: #ff3d3d !important;
+  border-color: #ff3d3d !important;
+}
+
+.transcript{
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 50px;
+  color: black;
+  background-color: rgb(255, 255, 255);
+}
+
+.messages-container {
+  margin-top: 50px;
+}
+
+.messages-container ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.messages-container ul li{
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.messages-container ul li {
+  margin: 50px auto;
+  border: 4px solid #00bfb6;
+  padding: 20px;
+  text-align: center;
+  font-weight: 900;
+  color: #00bfb6;
+  font-family: arial;
+  position: relative;
+}
+
+.messages-container ul li.sb1 {
+  border: 2px solid #fbf3e6;
+  color: #fbf3e6;
+  text-align: left;
+}
+
+.messages-container ul li.sb2 {
+  text-align: right;
+}
+
+.sb1:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid #fbf3e6;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  left: -22px;
+}
+
+.sb2:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid #00bfb6;
+  border-right: 10px solid transparent;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  right: -22px;
+}
+
+.transcript-input{
+  margin-top: 50px;
+  background-color: #fff;
+  border: 1px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  width: 100%;
+  color: #000;
+}
