@@ -1,35 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Speech To Text Sandbox
 
-## Getting Started
 
-First, run the development server:
+## Introduction
+This repository is a sandbox created to test the performance of popular Speech to text models or APIs.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Setup
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+2. Clone this repository
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+3. Navigate into the project directory
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+   ```bash
+   $ cd speech-to-text-sandbox
+   ```
 
-## Learn More
+4. Install the requirements
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   $ npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Make a copy of the example environment variables file
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   On Linux systems: 
+   ```bash
+   $ cp .env.example .env
+   ```
+   On Windows:
+   ```powershell
+   $ copy .env.example .env
+   ```
+6. Add your [API key](https://platform.openai.com/account/api-keys) to the newly created `.env` file
 
-## Deploy on Vercel
+7. Run the app
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   $ npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# foresting
+## Features
+- Request Speech to text API
+- Response from Open AI GPT API
