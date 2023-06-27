@@ -1,4 +1,4 @@
-module.exports = {
+{
   "singleQuote": true,
   "printWidth": 160,
   "tabWidth": 2,
@@ -11,4 +11,4 @@ module.exports = {
   "requirePragma": false,
   "insertPragma": false,
   "proseWrap": "preserve"
-};
+}
