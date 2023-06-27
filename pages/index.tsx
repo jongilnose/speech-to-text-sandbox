@@ -13,16 +13,16 @@ interface Props {
 }
 
 interface Messages {
-  role : string;
-  content : string;
+  role: string;
+  content: string;
 }
 
-export default function Home(props: any) {
+export default function Home() {
   const [introduce, setIntroduceInput] = useState('');
   const [messages, setMessagesInput] = useState<Messages[]>([]);
   // const [speechMessage, setSpeechMessageInput] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
-  const { isMicrophoneAvailable, transcript, finalTranscript, resetTranscript, listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
+  const { isMicrophoneAvailable, transcript, resetTranscript, listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) {
@@ -41,26 +41,27 @@ export default function Home(props: any) {
       return;
     }
     const newMessages = {
-      role : 'user',
-      content: transcript
-    }
-    const tmpArray = [newMessages, ...messages]
-    setMessagesInput(tmpArray)
-    const responseMessage = await handleConversation(tmpArray)
+      role: 'user',
+      content: transcript,
+    };
+    const tmpArray = [newMessages, ...messages];
+    setMessagesInput(tmpArray);
+    const responseMessage = await handleConversation(tmpArray);
     const botMessages = {
-      role: 'assistant', content: responseMessage
-    }
-    setMessagesInput([botMessages, ...tmpArray])
-    resetTranscript()
-  }
+      role: 'assistant',
+      content: responseMessage,
+    };
+    setMessagesInput([botMessages, ...tmpArray]);
+    resetTranscript();
+  };
 
-  const handleConversation = async (messages: any) => {
-    const response = await axios.post(`/api/speech`,{
-      messages: messages
+  const handleConversation = async (messages: unknown) => {
+    const response = await axios.post(`/api/speech`, {
+      messages: messages,
     });
-    return response.data.message.trim()
-  }
-  
+    return response.data.message.trim();
+  };
+
   const startListening = () => {
     SpeechRecognition.startListening({ language: 'ko', continuous: true });
   };
@@ -88,9 +89,7 @@ export default function Home(props: any) {
     <Layout>
       <div>
         <div className="text-center mb-5">
-          <h1>
-            상담 로봇 
-          </h1>
+          <h1>상담 로봇</h1>
         </div>
         <div className="app">
           <div className="row">
@@ -104,14 +103,14 @@ export default function Home(props: any) {
                 <div className="text-center m-5">음성인식 : 대기중</div>
               )}
               <div className="text-center">
-              {listening ? (
-                <Button className="speech-button active" title="말하는중" disabled={isLoading} onClick={stopListening}>
-                  {isLoading ? <Spinner size="sm" animation="grow" variant="dark" /> : <BiMicrophone />}
-                </Button>
+                {listening ? (
+                  <Button className="speech-button active" title="말하는중" disabled={isLoading} onClick={stopListening}>
+                    {isLoading ? <Spinner size="sm" animation="grow" variant="dark" /> : <BiMicrophone />}
+                  </Button>
                 ) : (
-                <Button className="speech-button" title="대기중" disabled={isLoading} onClick={startListening}>
-                  {isLoading ? <Spinner size="sm" animation="grow" variant="dark" /> : <BiMicrophoneOff />}
-                </Button>
+                  <Button className="speech-button" title="대기중" disabled={isLoading} onClick={startListening}>
+                    {isLoading ? <Spinner size="sm" animation="grow" variant="dark" /> : <BiMicrophoneOff />}
+                  </Button>
                 )}
               </div>
               {/* <div>
