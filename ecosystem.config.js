@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'forresting',
+      name: 'speech-to-text-sandbox',
       exec_mode: "cluster",
       cwd: './',
       script: 'npm',

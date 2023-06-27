@@ -5,8 +5,8 @@ import { Button } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import { BiMicrophone, BiMicrophoneOff } from 'react-icons/bi';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import Layout from '../components/layout/Layout';
 import Messages from '../components/Messages';
+import Layout from '../components/layout/Layout';
 
 interface Props {
   title: string;
