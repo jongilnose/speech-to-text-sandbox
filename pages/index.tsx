@@ -20,7 +20,6 @@ interface Messages {
 export default function Home() {
   const [introduce, setIntroduceInput] = useState('');
   const [messages, setMessagesInput] = useState<Messages[]>([]);
-  // const [speechMessage, setSpeechMessageInput] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const { isMicrophoneAvailable, transcript, resetTranscript, listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
