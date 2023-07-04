@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { GetStaticProps } from 'next';
 import { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
-import Spinner from 'react-bootstrap/Spinner';
-import { BiMicrophone, BiMicrophoneOff } from 'react-icons/bi';
+import { Form } from 'react-bootstrap';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import Messages from '../components/Messages';
+import Recorder from '../components/Recorder';
 import Layout from '../components/layout/Layout';
 
 interface Props {
@@ -21,6 +20,8 @@ export default function Home() {
   const [introduce, setIntroduceInput] = useState('');
   const [messages, setMessagesInput] = useState<Messages[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [type, setType] = useState('BROWSER');
+  const [liveListening, setLiveListening] = useState(false);
   const { isMicrophoneAvailable, transcript, resetTranscript, listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
 
   useEffect(() => {
@@ -61,40 +62,56 @@ export default function Home() {
     return response.data.message.trim();
   };
 
-  const startListening = () => {
+  const browserListeningStart = async () => {
+    setLiveListening(true);
     SpeechRecognition.startListening({ language: 'ko', continuous: true });
+    await startSpeech();
   };
 
   const stopListening = async () => {
+    setLiveListening(false);
     await SpeechRecognition.stopListening();
-    setIsLoading(true);
-    await startSpeech();
-    setIsLoading(false);
   };
 
-  // const handleSpeechMessage = async (message:any) => {
-  //   setSpeechMessageInput(message)
-  // }
+  const setListening = async () => {
+    if (liveListening) {
+      await stopListening();
+      return;
+    }
+    switch (type) {
+      case 'BROWSER':
+        await browserListeningStart();
+        break;
+      case 'CLOVA':
+        console.log('CLOVA');
+        break;
+      case 'TRANSCRIBE':
+        console.log('TRANSCRIBE');
+        break;
+      case 'WHISPER':
+        console.log('WHISPER');
+        break;
+    }
+  };
 
-  // const handleKeyDown = async (event: React.KeyboardEvent<HTMLDivElement>) => {
-  //   if (event.key === 'Enter') {
-  //     event.preventDefault();
-  //     setIsLoading(true);
-  //     await startSpeech()
-  //     setIsLoading(false);
-  //   }
-  // };
   return (
     <Layout>
       <div>
         <div className="text-center mb-5">
-          <h1>상담 로봇</h1>
+          <h1>{type} Recognition</h1>
         </div>
         <div className="app">
           <div className="row">
-            <div className="text-center">{introduce}</div>
             <div>
-              {listening ? (
+              <Form.Select onChange={(e: any) => setType(e.currentTarget.value)}>
+                <option value="BROWSER">브라우저 내장</option>
+                <option value="CLOVA">네이버 크로바</option>
+                <option value="TRANSCRIBE">AWS Transcribe</option>
+                <option value="WHISPER">OpenAI whisper</option>
+              </Form.Select>
+            </div>
+            <div>
+              {liveListening ? (
                 <div className="text-center m-5">
                   음성인식 : <span className="text-danger speech-mic">인식중</span>
                 </div>
@@ -102,15 +119,7 @@ export default function Home() {
                 <div className="text-center m-5">음성인식 : 대기중</div>
               )}
               <div className="text-center">
-                {listening ? (
-                  <Button className="speech-button active" title="말하는중" disabled={isLoading} onClick={stopListening}>
-                    {isLoading ? <Spinner size="sm" animation="grow" variant="dark" /> : <BiMicrophone />}
-                  </Button>
-                ) : (
-                  <Button className="speech-button" title="대기중" disabled={isLoading} onClick={startListening}>
-                    {isLoading ? <Spinner size="sm" animation="grow" variant="dark" /> : <BiMicrophoneOff />}
-                  </Button>
-                )}
+                <Recorder />
               </div>
               {/* <div>
                 <input type="text" className="transcript-input" name="transcript" id="transcript" value={speechMessage} onChange={e => handleSpeechMessage(e.target.value)}  onKeyDown={handleKeyDown} />
